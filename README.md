@@ -1,76 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+public class Main extends Activity implements @Override
+  public void onAccuracyChanged(Sensor sensor, int accuracy) { //Изменение точности показаний датчика
+  }
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+@Override
+  protected void onResume() {
+  }
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="25dp"
-            android:text="Угол XY" />
+@Override
+  protected void onPause() {
+  }
 
-        <TextView
-            android:id="@+id/xyValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="25dp"
-            android:text="0" />
+@Override
+  public void onSensorChanged(SensorEvent event) { //Изменение показаний датчиков
+  }
 
-    </LinearLayout>
+    private SensorManager mSensorManager; 
+  private Sensor mOrientation;
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+  private float xy_angle;
+  private float xz_angle;
+  private float zy_angle;
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="25dp"
-            android:text="Угол XZ" /> />
+  private TextView xyView;
+  private TextView xzView;
+  private TextView zyView;
 
-        <TextView
-            android:id="@+id/xzValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="25dp"
-            android:text="0" />
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main);
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="25dp"
-            android:text="Угол ZY" />
-
-        <TextView
-            android:id="@+id/zyValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="25dp"
-            android:text="0" />
-
-    </LinearLayout>
-
-</LinearLayout>
+    mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE); // Получаем менеджер сенсоров
+    mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION); // Получаем датчик положения
+    
+    xyView = (TextView) findViewById(R.id.xyValue);  //
+    xzView = (TextView) findViewById(R.id.xzValue);  // Наши текстовые поля для вывода показаний
+    zyView = (TextView) findViewById(R.id.zyValue);  //
+  }
+public void onSensorChanged(SensorEvent event) {
+    xy_angle = event.values[0]; //Плоскость XY
+    xz_angle = event.values[1]; //Плоскость XZ
+    zy_angle = event.values[2]; //Плоскость ZY
+    
+    xyView.setText(String.valueOf(xy_angle));
+    xzView.setText(String.valueOf(xz_angle));
+    zyView.setText(String.valueOf(zy_angle));
+}
+  
+  
