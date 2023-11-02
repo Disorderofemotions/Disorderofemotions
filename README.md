@@ -1,49 +1,47 @@
-public class Main extends Activity implements @Override
-  public void onAccuracyChanged(Sensor sensor, int accuracy) { //Изменение точности показаний датчика
-  }
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-@Override
-  protected void onResume() {
-  }
+public class DatabaseDeletion extends Application {
 
-@Override
-  protected void onPause() {
-  }
+    @Override
+    public void start(Stage primaryStage) {
+        // Инициализация элементов GUI
+        Button deleteButton = new Button("Удалить элемент из базы данных");
 
-@Override
-  public void onSensorChanged(SensorEvent event) { //Изменение показаний датчиков
-  }
+        // Обработчик нажатия на кнопку
+        deleteButton.setOnAction(e -> {
+            // Здесь должен быть код удаления элемента из базы данных
+            // Например, вызов метода удаления или запрос к базе данных
+            // Пример: database.deleteItem(itemId);
+        });
 
-    private SensorManager mSensorManager; 
-  private Sensor mOrientation;
+        VBox root = new VBox(10);
+        root.getChildren().addAll(deleteButton);
 
-  private float xy_angle;
-  private float xz_angle;
-  private float zy_angle;
+        Scene scene = new Scene(root, 300, 200);
+        primaryStage.setTitle("Удаление из базы данных");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
-  private TextView xyView;
-  private TextView xzView;
-  private TextView zyView;
-
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.main);
-
-    mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE); // Получаем менеджер сенсоров
-    mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION); // Получаем датчик положения
-    
-    xyView = (TextView) findViewById(R.id.xyValue);  //
-    xzView = (TextView) findViewById(R.id.xzValue);  // Наши текстовые поля для вывода показаний
-    zyView = (TextView) findViewById(R.id.zyValue);  //
-  }
-public void onSensorChanged(SensorEvent event) {
-    xy_angle = event.values[0]; //Плоскость XY
-    xz_angle = event.values[1]; //Плоскость XZ
-    zy_angle = event.values[2]; //Плоскость ZY
-    
-    xyView.setText(String.valueOf(xy_angle));
-    xzView.setText(String.valueOf(xz_angle));
-    zyView.setText(String.valueOf(zy_angle));
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
-  
-  
+ Дополните код:
+Метод deleteItem() должен быть заменен соответствующим вызовом вашей базы данных для удаления элемента.
+При нажатии на кнопку, вы можете передать идентификатор (или другую информацию) для удаления конкретного элемента из базы данных.
+Подключение к базе данных:
+Убедитесь, что у вас есть соединение с базой данных и методы для выполнения операций, таких как удаление элементов.
+Это базовый пример для демонстрации создания кнопки удаления в интерфейсе. Не забудьте обеспечить безопасность и подтверждение удаления перед выполнением операции удаления элемента из базы данных.
+
+Если у вас есть специфические требования или тип базы данных (например, SQL, NoSQL), нужно реализовать соответствующую логику удаления элементов из этой базы данных.
+
+
+User
+
+
+Save & Submit
